@@ -1,0 +1,12 @@
+{
+    "name": "npggha",
+    "version": "0.0.1",
+    "description": "Node-pre-gyp-github-authentication",
+    "main": "src/index.js",
+    "files": [
+        "src"
+    ],
+    "bin": {
+        "npggha": "src/index.js"
+    }
+}
