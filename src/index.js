@@ -16,10 +16,14 @@ function main() {
     }
 
     if (!process.env.HTTP_PROXY) {
-        console.warn('NPGGHA is not being used by node-pre-gyp (HTTP_PROXY is not set)');
+        console.warn('HTTP_PROXY may not be set');
     }
 
+    const used = false;
+
     const server = http.createServer(async (req, res) => {
+        used = true;
+
         const paths = url.parse(req.url, true).pathname.split('/');
 
         let [, org, repo,,, tag, asset ] = paths;
@@ -59,6 +63,12 @@ function main() {
 
         console.log(`Proxy listening on port ${port}`);
     });
+
+    // In cases the script is ran but the asset is already downloaded
+    setTimeout(() => {
+        if (!used)
+            server.close();
+    }, process.env.NPGGHA_LIFESPAN || 1000);
 }
 
 main();
