@@ -10,8 +10,14 @@ const port = process.env.NPGGHA_PORT || 9191
 function main() {
     const TOKEN = process.env.NPGGHA_TOKEN;
 
-    if (!TOKEN)
-        return;
+    if (!TOKEN) {
+        console.error('NPGGHA_TOKEN is not set');
+        process.exit(1);
+    }
+
+    if (!process.env.HTTP_PROXY) {
+        console.warn('NPGGHA is not being used by node-pre-gyp (HTTP_PROXY is not set)');
+    }
 
     const server = http.createServer(async (req, res) => {
         const paths = url.parse(req.url, true).pathname.split('/');
