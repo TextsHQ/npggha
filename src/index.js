@@ -42,6 +42,9 @@ function main() {
         } else {
             res.end(response.data);
         }
+
+        // Serves single request
+        server.close();
     });
 
     server.listen(port, (err) => {
