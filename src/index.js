@@ -19,7 +19,7 @@ function main() {
         console.warn('HTTP_PROXY may not be set');
     }
 
-    const used = false;
+    let used = false;
 
     const server = http.createServer(async (req, res) => {
         used = true;
